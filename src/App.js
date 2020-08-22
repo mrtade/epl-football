@@ -1,24 +1,51 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+
+import { fetchFootballStatus, fetchLeagues } from "./fetchData";
 
 function App() {
+  const [userData, setUserData] = useState({});
+  const [league, setLeague] = useState({});
+  const [requestLeague, setRequestLeague] = useState(false);
+
+  const handleUser = async () => {
+    const fetchedData = await fetchFootballStatus();
+    console.log(fetchedData);
+    const { email, requests_limit_day } = fetchedData;
+
+    setUserData(prevUserData => {
+      const newUserData = {
+        ...prevUserData,
+        email: email,
+        requests_limit_day: requests_limit_day,
+      };
+      return newUserData;
+    });
+  };
+
+  const handleLeagues = async () => {
+    const fetchedData = await fetchLeagues();
+    const { name, logo } = fetchedData;
+
+    setRequestLeague(prevRequestLeague => !prevRequestLeague);
+    setLeague(prevLeague => {
+      const updatedLeague = { name, logo };
+      return updatedLeague;
+    });
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <button onClick={handleUser}>Get Status</button>
+      <button onClick={handleLeagues}>Console log Leagues</button>
+
+      <div>User</div>
+      <div>{userData.email}</div>
+      {requestLeague ? (
+        <div>
+          <img src={league.logo} alt={league.name}></img>
+          <p>{league.name}</p>
+        </div>
+      ) : null}
     </div>
   );
 }
