@@ -1,5 +1,5 @@
 {
-  "name": "react-side",
+  "name": "epl-football",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -7,12 +7,15 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "axios": "^0.19.2",
+    "dotenv": "^8.2.0",
     "esm": "^3.2.25",
     "koa": "^2.13.0",
     "koa-body": "^4.2.0",
     "koa-cookie": "^1.0.0",
-    "koa-router": "^9.4.0",
+    "koa-json": "^2.0.2",
     "koa-static": "^5.0.0",
+    "@koa/cors": "^3.1.0",
+    "@koa/router": "^9.4.0",
     "node-fetch": "^2.6.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
