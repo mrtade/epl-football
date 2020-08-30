@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 import { findPremierLeague } from "./league/fetchPremierLeague";
+import TableWrapper from "./components/TableWrapper";
 
 function App() {
   const [requestLeague, setRequestLeague] = useState(false);
@@ -24,6 +25,7 @@ function App() {
           <p>{league.name}</p>
         </div>
       ) : null}
+      <TableWrapper />
     </div>
   );
 }
