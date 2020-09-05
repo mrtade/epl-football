@@ -6,11 +6,13 @@ const TeamRow = styled.div`
   align-items: center;
   justify-content: center;
   margin: 0.25rem auto;
-  background-color: #fff;
   height: 2rem;
+  border: 1px solid #4e4e4e;
+  border-radius: 8px;
 
   div {
     margin: 0 0.25rem;
+    border: 1px solid transparent;
   }
 `;
 
@@ -18,9 +20,8 @@ const TeamRank = styled.div`
   min-width: 2rem;
   flex-basis: 2rem;
   text-align: center;
-  background-color: blue;
   height: 100%;
-  color: white;
+  color: #000;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -36,7 +37,6 @@ const TeamLogo = styled.div`
   flex-basis: 2rem;
   height: 100%;
   position: relative;
-  background-color: orange;
 
   img {
     width: 100%;
@@ -46,14 +46,13 @@ const TeamLogo = styled.div`
 const TeamName = styled.div`
   display: flex;
   align-items: center;
-  background-color: purple;
   height: 100%;
   flex-basis: 18rem;
   min-width: 18rem;
 
   p {
     margin: 0 0 0 0.25rem;
-    color: white;
+    color: #000;
   }
 `;
 
@@ -61,8 +60,7 @@ const TeamMatchesPlayed = styled.div`
   min-width: 2rem;
   flex-basis: 2rem;
   height: 100%;
-  color: #fff;
-  background-color: orange;
+  color: #000;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -72,72 +70,55 @@ const TeamMatchesPlayed = styled.div`
   }
 `;
 
-const TeamPoints = styled(TeamMatchesPlayed)`
-  background-color: yellow;
-`;
+const TeamPoints = styled(TeamMatchesPlayed)``;
 
-const TeamWin = styled(TeamMatchesPlayed)`
-  background-color: purple;
-`;
+const TeamWin = styled(TeamMatchesPlayed)``;
 
-const TeamDraw = styled(TeamMatchesPlayed)`
-  background-color: brown;
-`;
+const TeamDraw = styled(TeamMatchesPlayed)``;
 
-const TeamLose = styled(TeamMatchesPlayed)`
-  background-color: pink;
-`;
+const TeamLose = styled(TeamMatchesPlayed)``;
 
-const TeamGoalsFor = styled(TeamMatchesPlayed)`
-  background-color: red;
-`;
+const TeamGoalsFor = styled(TeamMatchesPlayed)``;
 
-const TeamGoalsAgainst = styled(TeamMatchesPlayed)`
-  background-color: orange;
-`;
+const TeamGoalsAgainst = styled(TeamMatchesPlayed)``;
 
-const TeamGoalDiff = styled(TeamMatchesPlayed)`
-  background-color: brown;
-`;
+const TeamGoalDiff = styled(TeamMatchesPlayed)``;
 
 function TableItem(props) {
   return (
     <TeamRow>
       <TeamRank>
-        <p>1</p>
+        <p>{props.rank}</p>
       </TeamRank>
       <TeamLogo>
-        <img
-          src="https://media.api-sports.io/football/leagues/39.png"
-          alt=""
-        ></img>
+        <img src={props.logo} alt={props.teamName}></img>
       </TeamLogo>
       <TeamName>
-        <p>Manchester United</p>
+        <p>{props.teamTitle}</p>
       </TeamName>
-      <TeamPoints>
-        <p>20</p>
-      </TeamPoints>
       <TeamMatchesPlayed>
-        <p>38</p>
+        <p>{props.matchesPlayed}</p>
       </TeamMatchesPlayed>
+      <TeamPoints>
+        <p>{props.points}</p>
+      </TeamPoints>
       <TeamWin>
-        <p>120</p>
+        <p>{props.matchesWin}</p>
       </TeamWin>
       <TeamDraw>
-        <p>20</p>
+        <p>{props.matchesDraw}</p>
       </TeamDraw>
       <TeamLose>
-        <p>20</p>
+        <p>{props.matchesLose}</p>
       </TeamLose>
       <TeamGoalsFor>
-        <p>20</p>
+        <p>{props.goalsFor}</p>
       </TeamGoalsFor>
       <TeamGoalsAgainst>
-        <p>20</p>
+        <p>{props.goalsAgainst}</p>
       </TeamGoalsAgainst>
       <TeamGoalDiff>
-        <p>20</p>
+        <p>{props.goalsDiff}</p>
       </TeamGoalDiff>
     </TeamRow>
   );

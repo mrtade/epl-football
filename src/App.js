@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 import { findPremierLeague } from "./league/fetchPremierLeague";
+
 import TableWrapper from "./components/TableWrapper";
 
 function App() {

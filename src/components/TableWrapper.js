@@ -1,34 +1,45 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import LeagueLogo from "./TableStyles";
 import TableItem from "./TableItem";
+import { findPremierLeagueTable } from "../league/fetchPremierLeague";
 
 const TableWrap = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: #f1f1f1;
+  max-width: 768px;
   margin: 1rem 0;
   padding: 1rem 0;
+  border: 1px solid #4e4e4e;
+  border-radius: 4px;
 `;
 
 const TableHeading = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: white;
   margin: 0 auto;
   height: 2rem;
+  border-bottom: 1px solid #4e4e4e;
 
   div {
     margin: 0 0.25rem;
+    border: 1px solid transparent;
+  }
+`;
+
+const LeagueLogo = styled.div`
+  flex-basis: 2rem;
+  max-width: 2rem;
+
+  img {
+    width: 100%;
   }
 `;
 
 const TableHeadingClub = styled.div`
   margin: 0;
   min-width: 20.5rem;
-  background-color: Purple;
-  color: ${props => (props.primary ? "white" : "blue")};
+  color: #000;
   height: 100%;
   display: flex;
   align-items: center;
@@ -42,8 +53,7 @@ const TableHeadingPoints = styled.div`
   min-width: 2rem;
   flex-basis: 2rem;
   height: 100%;
-  color: #fff;
-  background-color: orange;
+  color: #000;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -53,35 +63,39 @@ const TableHeadingPoints = styled.div`
   }
 `;
 
-const TableHeadingMatchesPlayed = styled(TableHeadingPoints)`
-  background-color: green;
-`;
+const TableHeadingMatchesPlayed = styled(TableHeadingPoints)``;
 
-const TableHeadingWin = styled(TableHeadingPoints)`
-  background-color: purple;
-`;
+const TableHeadingWin = styled(TableHeadingPoints)``;
 
-const TableHeadingDraw = styled(TableHeadingPoints)`
-  background-color: orange;
-`;
+const TableHeadingDraw = styled(TableHeadingPoints)``;
 
-const TableHeadingLose = styled(TableHeadingPoints)`
-  background-color: blue;
-`;
+const TableHeadingLose = styled(TableHeadingPoints)``;
 
-const TableHeadingGoalsFor = styled(TableHeadingPoints)`
-  background-color: yellow;
-`;
+const TableHeadingGoalsFor = styled(TableHeadingPoints)``;
 
-const TableHeadingGoalsAgainst = styled(TableHeadingPoints)`
-  background-color: green;
-`;
+const TableHeadingGoalsAgainst = styled(TableHeadingPoints)``;
 
-const TableHeadingGoalDiff = styled(TableHeadingPoints)`
-  background-color: orange;
-`;
+const TableHeadingGoalDiff = styled(TableHeadingPoints)``;
 
 function TableWrapper() {
+  const [premierLeagueTable, setpremierLeagueTable] = useState([]);
+
+  //   useEffect(() => {
+  //     const fetchedData = async () => {
+  //       await handlePremierLeagueTable();
+  //     };
+  //     console.log("in useEffect:? ", premierLeagueTable);
+  //   });
+
+  const handlePremierLeagueTable = async () => {
+    const fetchedData = await findPremierLeagueTable();
+    setpremierLeagueTable(() => {
+      const updatedLeagueTable = [...fetchedData];
+      console.log("updatedLeagueTable ?: ,", updatedLeagueTable);
+      return updatedLeagueTable;
+    });
+  };
+
   return (
     <TableWrap>
       <TableHeading>
@@ -120,26 +134,24 @@ function TableWrapper() {
         </TableHeadingGoalDiff>
       </TableHeading>
 
-      <TableItem></TableItem>
-      <TableItem></TableItem>
-      <TableItem></TableItem>
-      <TableItem></TableItem>
-      <TableItem></TableItem>
-      <TableItem></TableItem>
-      <TableItem></TableItem>
-      <TableItem></TableItem>
-      <TableItem></TableItem>
-      <TableItem></TableItem>
-      <TableItem></TableItem>
-      <TableItem></TableItem>
-      <TableItem></TableItem>
-      <TableItem></TableItem>
-      <TableItem></TableItem>
-      <TableItem></TableItem>
-      <TableItem></TableItem>
-      <TableItem></TableItem>
-      <TableItem></TableItem>
-      <TableItem></TableItem>
+      {premierLeagueTable.map(position => (
+        <TableItem
+          key={position.rank}
+          rank={position.rank}
+          id={position.team_id}
+          teamTitle={position.teamName}
+          logo={position.logo}
+          points={position.points}
+          matchesPlayed={position.all.matchsPlayed}
+          matchesWin={position.all.win}
+          matchesDraw={position.all.draw}
+          matchesLose={position.all.lose}
+          goalsFor={position.all.goalsFor}
+          goalsAgainst={position.all.goalsAgainst}
+          goalsDiff={position.goalsDiff}
+        />
+      ))}
+      <button onClick={handlePremierLeagueTable}>Table</button>
     </TableWrap>
   );
 }

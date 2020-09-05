@@ -8,7 +8,10 @@ import json from "koa-json";
 
 import dotenv from "dotenv";
 
-import { fetchPremierLeague } from "./services/fetchData";
+import {
+  fetchPremierLeague,
+  fetchPremierLeagueTable,
+} from "./services/fetchData";
 
 dotenv.config();
 
@@ -28,6 +31,12 @@ router.get("/epl", async ctx => {
   ctx.status = 200;
   const data = await fetchPremierLeague();
   console.log(data);
+  ctx.body = data;
+});
+
+router.get("/epl_table", async ctx => {
+  ctx.status = 200;
+  const data = await fetchPremierLeagueTable();
   ctx.body = data;
 });
 

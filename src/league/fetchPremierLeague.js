@@ -12,3 +12,16 @@ export const findPremierLeague = async () => {
     console.log("Error: ", err);
   }
 };
+
+export const findPremierLeagueTable = async () => {
+  try {
+    const premier_league_table = await axios.get(
+      `http://localhost:3003/epl_table`
+    );
+    const { data } = premier_league_table;
+    // console.log(data);
+    return data;
+  } catch (err) {
+    console.log("Error: ", err);
+  }
+};
