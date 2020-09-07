@@ -7,7 +7,15 @@ const TeamRow = styled.div`
   justify-content: center;
   margin: 0.25rem auto;
   height: 2rem;
-  border: 1px solid #4e4e4e;
+  ${props =>
+    props.uclPosition
+      ? "border: 1px solid #dd9e69;"
+      : props.eulPosition
+      ? "border: 1px solid #738fdd;"
+      : props.relegationPosition
+      ? "border: 1px solid #ba3646;"
+      : "border: 1px solid #4e4e4e;"}
+
   border-radius: 8px;
 
   div {
@@ -21,7 +29,7 @@ const TeamRank = styled.div`
   flex-basis: 2rem;
   text-align: center;
   height: 100%;
-  color: #000;
+  color: ${props => (props.uclPosition ? "#dd9e69" : "#000")};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -85,9 +93,18 @@ const TeamGoalsAgainst = styled(TeamMatchesPlayed)``;
 const TeamGoalDiff = styled(TeamMatchesPlayed)``;
 
 function TableItem(props) {
+  console.log(props);
   return (
-    <TeamRow>
-      <TeamRank>
+    <TeamRow
+      uclPosition={props.uclPosition}
+      eulPosition={props.eulPosition}
+      relegationPosition={props.relegationPosition}
+    >
+      <TeamRank
+        uclPosition={props.uclPosition}
+        eulPosition={props.eulPosition}
+        relegationPosition={props.relegationPosition}
+      >
         <p>{props.rank}</p>
       </TeamRank>
       <TeamLogo>

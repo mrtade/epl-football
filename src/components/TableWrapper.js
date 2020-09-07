@@ -149,6 +149,9 @@ function TableWrapper() {
           goalsFor={position.all.goalsFor}
           goalsAgainst={position.all.goalsAgainst}
           goalsDiff={position.goalsDiff}
+          uclPosition={position.rank < 5 ? true : false}
+          eulPosition={position.rank >= 5 && position.rank < 7 ? true : false}
+          relegationPosition={position.rank > 17 ? true : false}
         />
       ))}
       <button onClick={handlePremierLeagueTable}>Table</button>
